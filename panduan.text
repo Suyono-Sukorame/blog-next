@@ -1,0 +1,65 @@
+Last login: Fri Aug 29 21:20:38 on ttys009
+admin@admins-Mac-mini ~ % curl -fsSL https://bun.sh/install | bash && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH" && bun create next-app blog-next && cd blog-next && bun dev
+######################################################################## 100.0%
+bun was installed successfully to ~/.bun/bin/bun 
+Run 'bun --help' to get started
+✔ Would you like to use TypeScript? … No / Yes
+✔ Which linter would you like to use? › ESLint
+✔ Would you like to use Tailwind CSS? … No / Yes
+✔ Would you like your code inside a `src/` directory? … No / Yes
+✔ Would you like to use App Router? (recommended) … No / Yes
+✔ Would you like to use Turbopack? (recommended) … No / Yes
+✔ Would you like to customize the import alias (`@/*` by default)? … No / Yes
+Creating a new Next.js app in /Users/admin/blog-next.
+
+Using bun.
+
+Initializing project with template: app-tw 
+
+
+Installing dependencies:
+- react
+- react-dom
+- next
+
+Installing devDependencies:
+- typescript
+- @types/node
+- @types/react
+- @types/react-dom
+- @tailwindcss/postcss
+- tailwindcss
+- eslint
+- eslint-config-next
+- @eslint/eslintrc
+
+bun install v1.2.21 (7c45ed97)
+
++ @eslint/eslintrc@3.3.1
++ @tailwindcss/postcss@4.1.12
++ @types/node@20.19.11 (v24.3.0 available)
++ @types/react@19.1.12
++ @types/react-dom@19.1.9
++ eslint@9.34.0
++ eslint-config-next@15.5.2
++ tailwindcss@4.1.12
++ typescript@5.9.2
++ next@15.5.2
++ react@19.1.0
++ react-dom@19.1.0
+
+327 packages installed [45.93s]
+
+Blocked 2 postinstalls. Run `bun pm untrusted` for details.
+Initialized a git repository.
+
+Success! Created blog-next at /Users/admin/blog-next
+
+$ next dev --turbopack
+ ⚠ Port 3000 is in use by process 37722, using available port 3001 instead.
+   ▲ Next.js 15.5.2 (Turbopack)
+   - Local:        http://localhost:3001
+   - Network:      http://10.66.65.9:3001
+
+ ✓ Starting...
+ ✓ Ready in 839ms
