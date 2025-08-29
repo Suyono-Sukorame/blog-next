@@ -1,15 +1,12 @@
-export default function BlogLayout({ children }) {
-  return (
-    <div style={{ display: "flex" }}>
-      {/* Sidebar */}
-      <div style={{ borderRight: "1px solid black", padding: "1rem", width: "250px" }}>
-        Sidebar
-      </div>
+import React, { ReactNode } from "react";
 
-      {/* Main Content */}
-      <div style={{ flex: 1, padding: "1rem" }}>
-        {children}
-      </div>
+export default function BlogLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex">
+      <div className="">[Sidebar]</div>
+      <div className="px-4">{children}</div>
     </div>
   );
 }
+
+
