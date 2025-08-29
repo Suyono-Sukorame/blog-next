@@ -1,4 +1,4 @@
-import Heading from "../components/Heading";
+import Heading from "@/app/components/Heading";
 import Link from "next/link";
 
 export default function LatihanPage() {
