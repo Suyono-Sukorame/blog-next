@@ -1,9 +1,10 @@
+import Heading from "../components/Heading";
 import Link from "next/link";
 
 export default function LatihanPage() {
   return (
     <>
-      <h1>Halaman Blog</h1>
+      <Heading>Halaman Blog</Heading>
       <p>List of posts</p>
       <ul>
         <li>

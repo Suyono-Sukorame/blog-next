@@ -1,15 +1,12 @@
-"use client"
-import { useEffect } from "react";
+import Heading from "./components/Heading";
 
 export default function Home() {
-  // useEffect(() => {
-  //   window.alert("Hello World");
-  // }, []);
-
   return (
-    <>
-      <h1>My Blog NextJS</h1>
-      <p>Hello World, this is nextjs app</p>
-    </>
+    <div className="p-6">
+      <Heading>Selamat Datang</Heading>
+      <p className="text-gray-600">
+        Ini contoh halaman dengan komponen Heading.
+      </p>
+    </div>
   );
 }

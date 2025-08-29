@@ -1,7 +1,9 @@
+import Heading from "../../components/Heading";
+
 export default function BlogPage() {
   return (
     <>
-      <h1>Halaman latihan route next</h1>
+      <Heading>Halaman latihan route next</Heading>
       <p>Halaman Halaman latihan route next</p>
     </>
   );
