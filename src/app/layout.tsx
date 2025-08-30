@@ -1,11 +1,13 @@
+// src/app/layout.tsx
 import Navbar from "./components/Navbar";
 import type { Metadata } from "next";
 import "./globals.css";
+import { inter } from "./fonts"; // ⬅️ ambil dari fonts.ts
 
 export const metadata: Metadata = {
   title: "Blog NextJS",
   description: "A modern blog created with Next.js",
-}
+};
 
 export default function RootLayout({
   children,
@@ -13,10 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.className}>
       <body className="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 min-h-screen flex flex-col">
         <header className="sticky top-0 z-10">
-          <Navbar/>
+          <Navbar />
         </header>
         <main className="container mx-auto px-4 py-8 flex-grow">
           {children}
@@ -35,5 +37,5 @@ export default function RootLayout({
         </footer>
       </body>
     </html>
-  )
+  );
 }
