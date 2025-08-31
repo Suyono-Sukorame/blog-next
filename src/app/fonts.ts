@@ -1,3 +1,5 @@
+//src/app/fonts.ts
+
 import { Inter, Roboto } from "next/font/google";
 
 // Definisikan font
