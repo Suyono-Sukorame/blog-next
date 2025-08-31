@@ -1,3 +1,11 @@
+---
+title: "Belajar Next.js"
+image: "/images/image-1.jpg"
+author: "Admin"
+date: "2025-08-31"
+tags: ["Next.js", "React", "Frontend"]
+---
+
 # Next.js Docs
 
 ## What is Next.js?

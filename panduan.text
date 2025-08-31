@@ -78,4 +78,11 @@ installed @tailwindcss/typography@0.5.16
 6 packages installed [2.01s]
 admin@admins-Mac-mini blog-next % 
 
+===
 
+admin@admins-Mac-mini blog-next % bun add gray-matter
+bun add v1.2.21 (7c45ed97)
+
+installed gray-matter@4.0.3
+
+10 packages installed [1371.00ms]
