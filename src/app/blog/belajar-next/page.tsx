@@ -1,19 +1,14 @@
 // src/app/blog/belajar-next/page.tsx
-import { readFile } from "fs/promises";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import matter from "gray-matter";
 import Heading from "@/app/components/Heading";
+import { getPost } from "@/lib/post";
 
 export default async function PostPage() {
-  const file = await readFile("content/blog/belajar-nextjs.md", "utf8");
-
-  // Pisahkan front-matter dan konten
-  const { data, content } = matter(file);
+  const { data, content } = await getPost("content/blog/belajar-nextjs.md");
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      {/* Header */}
       <div className="mb-8 text-center">
         <Heading>
           <span className="bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-4xl font-extrabold text-transparent">
@@ -25,68 +20,21 @@ export default async function PostPage() {
         </p>
       </div>
 
-      {/* Thumbnail */}
       {data.image && (
-        <div className="relative mb-10 overflow-hidden rounded-2xl shadow-lg">
-          <img
-            src={data.image}
-            alt={`Thumbnail ${data.title}`}
-            className="h-auto w-full object-cover transition-transform duration-500 hover:scale-105"
-          />
-        </div>
+        <img
+          src={data.image}
+          alt={data.title}
+          className="mb-10 w-full rounded-2xl shadow-lg object-cover transition-transform duration-500 hover:scale-105"
+        />
       )}
 
-      {/* Markdown Content */}
       <article className="prose prose-lg dark:prose-invert max-w-none">
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           components={{
-            h1: ({ children, ...props }) => (
-              <Heading {...props}>
-                <span className="text-3xl mt-8 mb-4">{children}</span>
-              </Heading>
-            ),
-            h2: ({ children, ...props }) => (
-              <h2 {...props} className="text-2xl font-bold mt-6 mb-3">
-                {children}
-              </h2>
-            ),
-            h3: ({ children, ...props }) => (
-              <h3 {...props} className="text-xl font-semibold mt-4 mb-2">
-                {children}
-              </h3>
-            ),
-            p: ({ children, ...props }) => (
-              <p {...props} className="text-gray-700 dark:text-black mb-4">
-                {children}
-              </p>
-            ),
-            li: ({ children, ...props }) => (
-              <li {...props} className="ml-6 mb-2 list-disc">
-                {children}
-              </li>
-            ),
-            a: ({ children, ...props }) => (
-              <a {...props} className="text-blue-600 hover:text-blue-800">
-                {children}
-              </a>
-            ),
-            blockquote: ({ children, ...props }) => (
-              <blockquote
-                {...props}
-                className="border-l-4 border-purple-500 bg-purple-50 dark:bg-gray-800 rounded-md px-4 py-2 my-4"
-              >
-                {children}
-              </blockquote>
-            ),
-            code: (props: any) => (
-              <code
-                {...props}
-                className="bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 px-1 py-0.5 rounded"
-              >
-                {props.children}
-              </code>
-            ),
+            h1: ({ children }) => <h1 className="text-3xl font-bold mt-8 mb-4">{children}</h1>,
+            h2: ({ children }) => <h2 className="text-2xl font-semibold mt-6 mb-3">{children}</h2>,
+            h3: ({ children }) => <h3 className="text-xl font-medium mt-4 mb-2">{children}</h3>,
           }}
         >
           {content}
