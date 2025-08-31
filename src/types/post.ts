@@ -1,12 +1,11 @@
 // src/types/post.ts
-export interface Post {
+export type Post = {
   slug: string;
-  data: {
-    title: string;
-    author?: string;
-    date?: string;
-    image?: string;
-    [key: string]: any;
-  };
-  content: string;
-}
+  title: string;
+  image?: string;
+  author: string;
+  date: string;
+  description?: string;  // ✅ tambahkan supaya tidak error
+  content?: string;
+};
+

@@ -1,3 +1,4 @@
+// src/lib/posts.ts
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -5,42 +6,55 @@ import matter from "gray-matter";
 export type Post = {
   slug: string;
   title: string;
+  author?: string;
+  date?: string;
   image?: string;
-  author: string;
-  date: string;
-  tags: string[];
+  description?: string;
   content: string;
 };
 
-const postsDirectory = path.join(process.cwd(), "content/blog");
+const postsDir = path.join(process.cwd(), "content");
 
 export async function getPosts(): Promise<Post[]> {
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, "");
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+  const files = fs.readdirSync(postsDir);
 
-    const matterResult = matter(fileContents);
+  return files
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => {
+      const slug = file.replace(/\.md$/, "");
+      const filePath = path.join(postsDir, file);
+      const fileContent = fs.readFileSync(filePath, "utf8");
+      const { data, content } = matter(fileContent);
 
-    return {
-      slug,
-      ...(matterResult.data as Omit<Post, "slug" | "content">),
-      content: matterResult.content,
-    };
-  });
-
-  // Sort posts by date in descending order
-  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
+      return {
+        slug,
+        title: data.title || slug,
+        author: data.author || "Unknown",
+        date: data.date || "",
+        image: data.image || "",
+        description: data.description || "",
+        content,
+      };
+    });
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | undefined> {
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
-  if (!fs.existsSync(fullPath)) {
-    return undefined;
-  }
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  const filePath = path.join(postsDir, `${slug}.md`);
 
-  return { slug, ...(data as Omit<Post, "slug" | "content">), content };
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
+  const fileContent = fs.readFileSync(filePath, "utf8");
+  const { data, content } = matter(fileContent);
+
+  return {
+    slug,
+    title: data.title || slug,
+    author: data.author || "Unknown",
+    date: data.date || "",
+    image: data.image || "",
+    description: data.description || "",
+    content,
+  };
 }
