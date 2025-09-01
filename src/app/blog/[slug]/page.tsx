@@ -5,6 +5,7 @@ import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { Components } from "react-markdown";
 import type { Metadata } from "next";
+import ShareButtons from "@/components/ShareButtons";
 
 type PostPageProps = {
   params: { slug: string };
@@ -73,7 +74,7 @@ export default async function PostPage({ params }: PostPageProps) {
       ),
   };
 
-  return (
+    return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header className="text-center mb-10">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
@@ -95,6 +96,9 @@ export default async function PostPage({ params }: PostPageProps) {
           {post.content}
         </Markdown>
       </article>
+
+      {/* Share Buttons */}
+      <ShareButtons url={`https://example.com/blog/${post.slug}`} title={post.title} />
     </div>
   );
 }
