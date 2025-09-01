@@ -1,7 +1,7 @@
 ---
-title: "Belajar Next.js"
+title: "Belajar route Next.js"
 description: "deskripsi cukup panjang untuk tema post"
-image: "/images/image-1.jpg"
+image: "/images/image-2.jpg"
 date: "26/11/2023"
 author: "admin"
 ---
