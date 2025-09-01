@@ -1,19 +1,30 @@
 // src/app/blog/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/posts";
+import { getPostBySlug, getAllPosts } from "@/lib/posts"; // ✅ pastikan ada fungsi getAllPosts
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { Components } from "react-markdown";
 import type { Metadata } from "next";
+import type { ComponentPropsWithoutRef } from "react";
+import Image from "next/image";
 import ShareButtons from "@/components/ShareButtons";
 
 type PostPageProps = {
   params: { slug: string };
 };
 
+// ✅ Tambahkan ini
+export async function generateStaticParams() {
+  const posts = await getAllPosts(); // ambil semua post
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
 // Metadata dinamis per post
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -23,6 +34,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   }
 
   return {
+    metadataBase: new URL("https://example.com"), // ganti domainmu
     title: post.title,
     description: post.description ?? "",
     openGraph: {
@@ -38,33 +50,34 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       images: post.image ? [post.image] : [],
     },
     alternates: {
-      canonical: `/blog/${params.slug}`,
+      canonical: `https://example.com/blog/${slug}`,
     },
   };
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) return notFound();
 
   const components: Components = {
-    h1: ({ node, ...props }) => (
+    h1: (props) => (
       <h1 className="text-3xl md:text-4xl font-extrabold mt-8 mb-4 border-b pb-2" {...props} />
     ),
-    h2: ({ node, ...props }) => (
+    h2: (props) => (
       <h2 className="text-2xl md:text-3xl font-bold mt-6 mb-3 text-indigo-600 dark:text-indigo-400" {...props} />
     ),
-    h3: ({ node, ...props }) => (
+    h3: (props) => (
       <h3 className="text-xl md:text-2xl font-semibold mt-5 mb-2" {...props} />
     ),
-    p: ({ node, ...props }) => (
+    p: (props) => (
       <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-5" {...props} />
     ),
-    blockquote: ({ node, ...props }) => (
+    blockquote: (props) => (
       <blockquote className="border-l-4 border-indigo-500 pl-4 italic text-gray-700 dark:text-gray-300" {...props} />
     ),
-    code: ({ node, inline, ...props }: any) =>
+    code: ({ inline, ...props }: ComponentPropsWithoutRef<"code"> & { inline?: boolean }) =>
       inline ? (
         <code className="bg-gray-200 dark:bg-gray-800 text-pink-500 px-1 rounded" {...props} />
       ) : (
@@ -74,7 +87,7 @@ export default async function PostPage({ params }: PostPageProps) {
       ),
   };
 
-    return (
+  return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header className="text-center mb-10">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
@@ -87,7 +100,13 @@ export default async function PostPage({ params }: PostPageProps) {
 
       {post.image && (
         <div className="mb-10">
-          <img src={post.image} alt={post.title} className="w-full rounded-2xl shadow-xl object-cover" />
+          <Image
+            src={post.image}
+            alt={post.title}
+            width={800}
+            height={450}
+            className="w-full rounded-2xl shadow-xl object-cover"
+          />
         </div>
       )}
 
@@ -97,7 +116,6 @@ export default async function PostPage({ params }: PostPageProps) {
         </Markdown>
       </article>
 
-      {/* Share Buttons */}
       <ShareButtons url={`https://example.com/blog/${post.slug}`} title={post.title} />
     </div>
   );
