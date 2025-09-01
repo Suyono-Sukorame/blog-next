@@ -86,3 +86,21 @@ bun add v1.2.21 (7c45ed97)
 installed gray-matter@4.0.3
 
 10 packages installed [1371.00ms]
+
+===
+
+admin@admins-Mac-mini blog-next % bunx serve@latest out
+
+   ┌─────────────────────────────────────────┐
+   │                                         │
+   │   Serving!                              │
+   │                                         │
+   │   - Local:    http://localhost:3000     │
+   │   - Network:  http://10.50.193.9:3000   │
+   │                                         │
+   │   Copied local address to clipboard!    │
+   │                                         │
+   └─────────────────────────────────────────┘
+
+ HTTP  9/2/2025 7:09:37 AM ::1 GET /
+ HTTP  9/2/2025 7:09:37 AM ::1 Returned 200 in 40 ms
