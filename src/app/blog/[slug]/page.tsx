@@ -4,10 +4,33 @@ import { getPostBySlug } from "@/lib/posts";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { Components } from "react-markdown";
+import type { Metadata } from "next";
 
 type PostPageProps = {
   params: { slug: string };
 };
+
+// Fungsi untuk metadata dinamis per post
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+      description: "Halaman ini tidak tersedia",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description ?? "",
+    openGraph: {
+      title: post.title,
+      description: post.description ?? "",
+      images: post.image ? [{ url: post.image }] : [],
+    },
+  };
+}
 
 export default async function PostPage({ params }: PostPageProps) {
   const post = await getPostBySlug(params.slug);
