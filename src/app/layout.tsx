@@ -1,5 +1,4 @@
 // src/app/layout.tsx
-// src/app/layout.tsx
 import Navbar from "../components/Navbar";
 import type { Metadata } from "next";
 import "./globals.css";
