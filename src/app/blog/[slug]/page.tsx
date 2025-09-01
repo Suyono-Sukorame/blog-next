@@ -10,7 +10,7 @@ type PostPageProps = {
   params: { slug: string };
 };
 
-// Fungsi untuk metadata dinamis per post
+// Metadata dinamis per post
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
 
@@ -28,6 +28,16 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       title: post.title,
       description: post.description ?? "",
       images: post.image ? [{ url: post.image }] : [],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description ?? "",
+      images: post.image ? [post.image] : [],
+    },
+    alternates: {
+      canonical: `/blog/${params.slug}`,
     },
   };
 }
