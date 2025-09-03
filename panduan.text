@@ -104,3 +104,44 @@ admin@admins-Mac-mini blog-next % bunx serve@latest out
 
  HTTP  9/2/2025 7:09:37 AM ::1 GET /
  HTTP  9/2/2025 7:09:37 AM ::1 Returned 200 in 40 ms
+
+ ===
+
+admin@admins-Mac-mini out % cd ..
+admin@admins-Mac-mini blog-next % cd out 
+admin@admins-Mac-mini out % surge
+
+   Running as suyonosukorame@ymail.com (Student)
+
+        project: /Users/admin/blog-next/out/
+         domain: suyonosukorame-blog.surge.sh
+           size: 72 files, 4.4 MB
+         upload: [=========================] 100%
+            CDN: [=========================] 100%
+     encryption: [=========================] 100%
+
+  ┌──────────────────────────────────────────────────────────────────────────────┬────────────────────┐
+  │  Certificate: issuer=C = GB, ST = Greater Manchester, L = Salford, O = Sec…  │  Valid             │
+  │   *.surge.sh, surge.sh                                                       │  276 more days     │
+  └──────────────────────────────────────────────────────────────────────────────┴────────────────────┘
+  ┌──────────┬──────────────────────────────────────────────────────────────────────────────┬─────────┐
+  │          │   ns1.surge.world   ns2.surge.world     or CNAME…                            │         │
+  │    NS    │   ns3.surge.world   ns4.surge.world     geo.surge.world                      │         │
+  ├──────────┼──────────────────┬───────────────────────┬─────────────────────┬─────────────┼─────────┤
+  │   HTTP   │   sfo.surge.sh   │   US, San Francisco   │   138.197.235.123   │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   lhr.surge.sh   │   GB, London          │   46.101.67.123     │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   yyz.surge.sh   │   CA, Toronto         │   159.203.50.177    │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   jfk.surge.sh   │   US, New York        │   159.203.159.100   │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   ams.surge.sh   │   NL, Amsterdam       │   188.166.132.94    │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   fra.surge.sh   │   DE, Frankfurt       │   138.68.112.220    │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   sgp.surge.sh   │   SG, Singapore       │   139.59.195.30     │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   blr.surge.sh   │   IN, Bangalore       │   139.59.50.135     │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   syd.surge.sh   │   AU, Sydney          │   45.76.126.95      │   Vultr     │   ✔ ◍   │
+  │   HTTP   │   nrt.surge.sh   │   JP, Tokyo           │   172.104.96.133    │   Linode    │   ✔ ◍   │
+  └──────────┴──────────────────┴───────────────────────┴─────────────────────┴─────────────┴─────────┘
+   Live preview ........................................... 1756769794348-suyonosukorame-blog.surge.sh
+   Production ........................................................... suyonosukorame-blog.surge.sh
+
+   Success! - Published to suyonosukorame-blog.surge.sh
+
+admin@admins-Mac-mini out % 

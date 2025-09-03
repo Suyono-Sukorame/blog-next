@@ -1,0 +1,255 @@
+{
+  "data": [
+    {
+      "id": 3,
+      "documentId": "pj0ff84wny7oriqywa8g7xv4",
+      "title": "Belajar Strapi",
+      "description": "Konten Strapi",
+      "body": "Disini adalah tempay belajar strapi dengan huruf **tebal**",
+      "slug": "belajar-strapi",
+      "createdAt": "2025-09-02T13:34:52.366Z",
+      "updatedAt": "2025-09-02T13:41:59.408Z",
+      "publishedAt": "2025-09-02T13:41:59.414Z",
+      "image": {
+        "id": 1,
+        "documentId": "clxm7offqkb1fgo2ss27wycx",
+        "name": "image-5.jpg",
+        "alternativeText": null,
+        "caption": null,
+        "width": 2075,
+        "height": 1376,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_image-5.jpg",
+            "hash": "thumbnail_image_5_887c059b67",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 235,
+            "height": 156,
+            "size": 11.65,
+            "sizeInBytes": 11654,
+            "url": "/uploads/thumbnail_image_5_887c059b67.jpg"
+          },
+          "small": {
+            "name": "small_image-5.jpg",
+            "hash": "small_image_5_887c059b67",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 500,
+            "height": 332,
+            "size": 38.4,
+            "sizeInBytes": 38400,
+            "url": "/uploads/small_image_5_887c059b67.jpg"
+          },
+          "medium": {
+            "name": "medium_image-5.jpg",
+            "hash": "medium_image_5_887c059b67",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 750,
+            "height": 497,
+            "size": 73.69,
+            "sizeInBytes": 73689,
+            "url": "/uploads/medium_image_5_887c059b67.jpg"
+          },
+          "large": {
+            "name": "large_image-5.jpg",
+            "hash": "large_image_5_887c059b67",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 1000,
+            "height": 663,
+            "size": 119.5,
+            "sizeInBytes": 119496,
+            "url": "/uploads/large_image_5_887c059b67.jpg"
+          }
+        },
+        "hash": "image_5_887c059b67",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 570.36,
+        "url": "/uploads/image_5_887c059b67.jpg",
+        "previewUrl": null,
+        "provider": "local",
+        "provider_metadata": null,
+        "createdAt": "2025-09-02T13:34:31.494Z",
+        "updatedAt": "2025-09-02T13:34:31.494Z",
+        "publishedAt": "2025-09-02T13:34:31.494Z"
+      }
+    },
+    {
+      "id": 5,
+      "documentId": "w4kkuzmw6ozqzbypqkkzbhwm",
+      "title": "Apa itu Strapi?",
+      "description": "Strapi adalah headless CMS (Content Management System) berbasis Node.js.",
+      "body": "Strapi adalah headless CMS (Content Management System) berbasis Node.js.\n\nHeadless artinya Strapi hanya menyediakan backend & API, tanpa frontend bawaan.\n\nKamu bisa gunakan Strapi untuk:\n\nMengelola konten (artikel, produk, user, dll)\n\nMengatur role & permissions\n\nMenyediakan API (REST atau GraphQL) untuk frontend seperti Next.js, React, Vue, Flutter, dsb",
+      "slug": "apa-itu-strapi",
+      "createdAt": "2025-09-03T12:49:26.909Z",
+      "updatedAt": "2025-09-03T12:49:26.909Z",
+      "publishedAt": "2025-09-03T12:49:26.916Z",
+      "image": {
+        "id": 2,
+        "documentId": "gnaj2jr4ade3r4fuslki84dj",
+        "name": "Nasi-Pecel-Madiun.jpg",
+        "alternativeText": null,
+        "caption": null,
+        "width": 1080,
+        "height": 720,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_Nasi-Pecel-Madiun.jpg",
+            "hash": "thumbnail_Nasi_Pecel_Madiun_4f8984f665",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 234,
+            "height": 156,
+            "size": 13.11,
+            "sizeInBytes": 13107,
+            "url": "/uploads/thumbnail_Nasi_Pecel_Madiun_4f8984f665.jpg"
+          },
+          "small": {
+            "name": "small_Nasi-Pecel-Madiun.jpg",
+            "hash": "small_Nasi_Pecel_Madiun_4f8984f665",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 500,
+            "height": 333,
+            "size": 45.69,
+            "sizeInBytes": 45685,
+            "url": "/uploads/small_Nasi_Pecel_Madiun_4f8984f665.jpg"
+          },
+          "medium": {
+            "name": "medium_Nasi-Pecel-Madiun.jpg",
+            "hash": "medium_Nasi_Pecel_Madiun_4f8984f665",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 750,
+            "height": 500,
+            "size": 89.45,
+            "sizeInBytes": 89447,
+            "url": "/uploads/medium_Nasi_Pecel_Madiun_4f8984f665.jpg"
+          },
+          "large": {
+            "name": "large_Nasi-Pecel-Madiun.jpg",
+            "hash": "large_Nasi_Pecel_Madiun_4f8984f665",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 1000,
+            "height": 667,
+            "size": 144.44,
+            "sizeInBytes": 144440,
+            "url": "/uploads/large_Nasi_Pecel_Madiun_4f8984f665.jpg"
+          }
+        },
+        "hash": "Nasi_Pecel_Madiun_4f8984f665",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 166.99,
+        "url": "/uploads/Nasi_Pecel_Madiun_4f8984f665.jpg",
+        "previewUrl": null,
+        "provider": "local",
+        "provider_metadata": null,
+        "createdAt": "2025-09-03T12:49:11.034Z",
+        "updatedAt": "2025-09-03T12:49:11.034Z",
+        "publishedAt": "2025-09-03T12:49:11.035Z"
+      }
+    },
+    {
+      "id": 7,
+      "documentId": "d2t950c31s16fcu2dkw7pfnk",
+      "title": "Kelebihan Strapi",
+      "description": "Open-source dan gratis (Community Edition)",
+      "body": "Open-source dan gratis (Community Edition)\n\nMudah bikin API sendiri tanpa coding banyak\n\nMendukung relasi antar collection\n\nMendukung media (upload gambar/video) secara built-in\n\nBisa pakai database: SQLite (default), PostgreSQL, MySQL, MongoDB",
+      "slug": "kelebihan-strapi",
+      "createdAt": "2025-09-03T12:51:10.837Z",
+      "updatedAt": "2025-09-03T12:51:14.361Z",
+      "publishedAt": "2025-09-03T12:51:14.366Z",
+      "image": {
+        "id": 3,
+        "documentId": "y1zwhh2om5l1voo8c5brry44",
+        "name": "full-moon-460314_1920.jpg",
+        "alternativeText": null,
+        "caption": null,
+        "width": 1920,
+        "height": 1280,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_full-moon-460314_1920.jpg",
+            "hash": "thumbnail_full_moon_460314_1920_661e8ae881",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 234,
+            "height": 156,
+            "size": 3.45,
+            "sizeInBytes": 3445,
+            "url": "/uploads/thumbnail_full_moon_460314_1920_661e8ae881.jpg"
+          },
+          "medium": {
+            "name": "medium_full-moon-460314_1920.jpg",
+            "hash": "medium_full_moon_460314_1920_661e8ae881",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 750,
+            "height": 500,
+            "size": 21.43,
+            "sizeInBytes": 21429,
+            "url": "/uploads/medium_full_moon_460314_1920_661e8ae881.jpg"
+          },
+          "small": {
+            "name": "small_full-moon-460314_1920.jpg",
+            "hash": "small_full_moon_460314_1920_661e8ae881",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 500,
+            "height": 333,
+            "size": 9.94,
+            "sizeInBytes": 9944,
+            "url": "/uploads/small_full_moon_460314_1920_661e8ae881.jpg"
+          },
+          "large": {
+            "name": "large_full-moon-460314_1920.jpg",
+            "hash": "large_full_moon_460314_1920_661e8ae881",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "path": null,
+            "width": 1000,
+            "height": 667,
+            "size": 43.46,
+            "sizeInBytes": 43455,
+            "url": "/uploads/large_full_moon_460314_1920_661e8ae881.jpg"
+          }
+        },
+        "hash": "full_moon_460314_1920_661e8ae881",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 284.53,
+        "url": "/uploads/full_moon_460314_1920_661e8ae881.jpg",
+        "previewUrl": null,
+        "provider": "local",
+        "provider_metadata": null,
+        "createdAt": "2025-09-03T12:51:05.678Z",
+        "updatedAt": "2025-09-03T12:51:05.678Z",
+        "publishedAt": "2025-09-03T12:51:05.678Z"
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 3
+    }
+  }
+}
