@@ -1,8 +1,20 @@
 // script/strapi-request.mjs
 
 import { writeFileSync } from "fs";
+import qs from "qs";
 
-const url = "http://localhost:1337/api/posts" + "?populate=*";
+const url = "http://localhost:1337/api/posts" + 
+"?" + 
+qs.stringify({
+    fields: ["slug", "title", "description", "publishedAt", "author", "body" ],
+    populate: {image: {fields: ["url"]}},
+    sort: ["publishedAt:desc"],
+    pagination: {pageSize: 3},
+},
+{
+    encodeValuesOnly: true,
+
+});
 
 const response = await fetch (url);
 
