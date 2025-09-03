@@ -1,9 +1,4 @@
 // src/lib/posts.ts
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { readdir } from "node:fs/promises";
-
 export type Post = {
   slug: string;
   title: string;
@@ -14,63 +9,58 @@ export type Post = {
   content: string;
 };
 
-const postsDir = path.join(process.cwd(), "content");
+const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
+
+export function getImageUrl(image: any) {
+  if (!image || !image.url) return "/placeholder.png";
+  return `${STRAPI_URL}${image.url}`;
+}
 
 export async function getPosts(): Promise<Post[]> {
-  const files = fs.readdirSync(postsDir);
+  const res = await fetch(`${STRAPI_URL}/api/posts?populate=image`, {
+    next: { revalidate: 60 }, // ISR cache 60 detik
+  });
 
-  return files
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => {
-      const slug = file.replace(/\.md$/, "");
-      const filePath = path.join(postsDir, file);
-      const fileContent = fs.readFileSync(filePath, "utf8");
-      const { data, content } = matter(fileContent);
+  if (!res.ok) throw new Error("Gagal fetch posts dari Strapi");
+  const json = await res.json();
 
-      return {
-        slug,
-        title: data.title || slug,
-        author: data.author || "Unknown",
-        date: data.date || "",
-        image: data.image || "",
-        description: data.description || "",
-        content,
-      };
-    });
+  return json.data.map((item: any) => {
+    return {
+      slug: item.slug,
+      title: item.title,
+      author: item.author || "Unknown",
+      date: item.publishedAt || "",
+      image: getImageUrl(item.image), // ✅ pakai helper
+      description: item.description || "",
+      content: item.body || "",
+    };
+  });
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  const filePath = path.join(postsDir, "blog", `${slug}.md`); // tambahkan folder blog di path
-  if (!fs.existsSync(filePath)) return null;
+  const res = await fetch(
+    `${STRAPI_URL}/api/posts?filters[slug][$eq]=${slug}&populate=image`,
+    { cache: "no-store" }
+  );
 
-  const fileContent = fs.readFileSync(filePath, "utf8");
-  const { data, content } = matter(fileContent);
+  if (!res.ok) throw new Error("Gagal fetch post dari Strapi");
+  const json = await res.json();
+
+  if (!json.data || json.data.length === 0) return null;
+
+  const item = json.data[0];
 
   return {
-    slug,
-    title: data.title || slug,
-    author: data.author || "Unknown",
-    date: data.date || "",
-    image: data.image || "",
-    description: data.description || "",
-    content,
+    slug: item.slug,
+    title: item.title,
+    author: item.author || "Unknown",
+    date: item.publishedAt || "",
+    image: getImageUrl(item.image), // ✅ konsisten
+    description: item.description || "",
+    content: item.body || "",
   };
 }
 
 export async function getAllPosts(): Promise<Post[]> {
-  const blogDir = path.join(postsDir, "blog");
-  const files = await readdir(blogDir);
-
-  const slugs = files
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => file.replace(/\.md$/, ""));
-
-  const posts: Post[] = [];
-
-  for (const slug of slugs) {
-    const post = await getPostBySlug(slug);
-    if (post) posts.push(post);
-  }
-
-  return posts;
+  return getPosts();
 }
