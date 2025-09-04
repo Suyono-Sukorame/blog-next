@@ -1,5 +1,9 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+// blog-next/tailwind.config.ts
+import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
+import tailwindAnimate from "tailwindcss-animate";
+
+const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,8 +17,7 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require("tw-animate-css"),
-    require("tailwindcss-animate")],
+  plugins: [typography, tailwindAnimate],
 };
+
+export default config;
