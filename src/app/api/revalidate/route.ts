@@ -1,22 +1,28 @@
 // src/app/api/revalidate/route.ts
-import { NextRequest } from "next/server";
-import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache"; // ✅ impor ini
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const { slug } = await request.json();
+    const body = await req.json();
+    const { secret, slug } = body;
 
-    if (!slug) {
-      return new Response(JSON.stringify({ message: "Missing slug" }), { status: 400 });
+    if (secret !== process.env.REVALIDATE_SECRET) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 401 });
     }
 
-    // Revalidate halaman tertentu
+    if (!slug) {
+      return NextResponse.json({ message: "Slug is required" }, { status: 400 });
+    }
+
+    // Revalidate halaman
     await revalidatePath(`/blog/${slug}`);
 
-    return new Response(JSON.stringify({ message: "Revalidated successfully" }), { status: 200 });
+    return NextResponse.json({ revalidated: true });
   } catch (err) {
-    console.error("Revalidate error:", err);
-    return new Response(JSON.stringify({ message: "Error revalidating" }), { status: 500 });
+    console.error(err);
+    return NextResponse.json({ message: "Error revalidating" }, { status: 500 });
   }
 }
+
 
