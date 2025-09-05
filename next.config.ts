@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export", // ⬅️ wajib biar bisa static export
+  output: "standalone", // ⬅️ biar bisa runtime fetch ke Strapi
   images: {
-    unoptimized: true, // ⬅️ kalau pakai <Image>, perlu ini supaya jalan di static
+    unoptimized: true, // ⬅️ kalau pakai <Image>, biar tidak error saat export
   },
 };
 

@@ -10,10 +10,26 @@ export type Post = {
   content: string;
 };
 
+// Tipe data image dari Strapi
+type StrapiImage = {
+  url?: string;
+};
+
+// Tipe data post dari Strapi
+type StrapiPost = {
+  slug: string;
+  title: string;
+  author?: string;
+  publishedAt?: string;
+  image?: StrapiImage;
+  description?: string;
+  body?: string;
+};
+
 const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 
 // Helper untuk image
-function getImageUrl(image?: any): string {
+function getImageUrl(image?: StrapiImage): string {
   if (!image?.url) return "/placeholder.png";
   return `${STRAPI_URL}${image.url}`;
 }
@@ -26,9 +42,9 @@ export async function getPosts(): Promise<Post[]> {
 
   if (!res.ok) throw new Error("Gagal fetch posts dari Strapi");
 
-  const json = await res.json();
+  const json: { data?: StrapiPost[] } = await res.json();
 
-  return (json.data || []).map((post: any) => ({
+  return (json.data || []).map((post) => ({
     slug: post.slug,
     title: post.title,
     author: post.author || "Unknown",
@@ -47,7 +63,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   );
 
   if (!res.ok) throw new Error("Gagal fetch post dari Strapi");
-  const json = await res.json();
+  const json: { data?: StrapiPost[] } = await res.json();
 
   if (!json.data || json.data.length === 0) return null;
 
