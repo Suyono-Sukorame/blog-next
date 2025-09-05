@@ -1,29 +1,17 @@
 // script/strapi-request.mjs
+import fs from "fs";
+import fetch from "node-fetch";
 
-import { writeFileSync } from "fs";
-import qs from "qs";
+const STRAPI_URL = "http://localhost:1337/api/posts";
 
-const url = "http://localhost:1337/api/posts" + 
-"?" + 
-qs.stringify({
-    fields: ["slug", "title", "description", "publishedAt", "author", "body" ],
-    populate: {image: {fields: ["url"]}},
-    sort: ["publishedAt:desc"],
-    pagination: {pageSize: 3},
-},
-{
-    encodeValuesOnly: true,
+async function fetchPosts() {
+  const res = await fetch(
+    `${STRAPI_URL}?pagination[page]=1&pagination[pageSize]=100&sort[0]=publishedAt:desc&populate=*`
+  );
+  const data = await res.json();
 
-});
+  fs.writeFileSync("./data/posts.json", JSON.stringify(data, null, 2));
+  console.log(`✅ Data berhasil di-export: ${data.data.length} posts`);
+}
 
-const response = await fetch (url);
-
-const body = await response.json();
-
-const posts = JSON.stringify(body, null, 2);
-
-// console.log(posts);
-
-const file = "script/strapi-response.json";
-
-writeFileSync(file, posts, "utf8");
+fetchPosts().catch(console.error);
