@@ -1,6 +1,6 @@
 // src/app/blog/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { getPostBySlug, getAllPosts } from "@/lib/posts"; // ✅ pastikan ada fungsi getAllPosts
+import { getPostBySlug, getAllPosts } from "@/lib/posts";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { Components } from "react-markdown";
@@ -13,17 +13,18 @@ type PostPageProps = {
   params: { slug: string };
 };
 
-// ✅ Tambahkan ini
+// ✅ Static paths untuk SSG
 export async function generateStaticParams() {
-  const posts = await getAllPosts(); // ambil semua post
+  const posts = await getAllPosts();
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-// Metadata dinamis per post
+// ✅ Metadata dinamis per post
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const resolvedParams = await params; // ✅ tunggu params dulu
+  const { slug } = resolvedParams;
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   }
 
   return {
-    metadataBase: new URL("https://example.com"), // ganti domainmu
+    metadataBase: new URL("https://namadomainmu.com"),
     title: post.title,
     description: post.description ?? "",
     openGraph: {
@@ -50,23 +51,43 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       images: post.image ? [post.image] : [],
     },
     alternates: {
-      canonical: `https://example.com/blog/${slug}`,
+      canonical: `https://namadomainmu.com/blog/${slug}`,
     },
   };
 }
 
+
+// ✅ Komponen Code terpisah
+function Code({ inline, ...props }: ComponentPropsWithoutRef<"code"> & { inline?: boolean }) {
+  return inline ? (
+    <code className="bg-gray-200 dark:bg-gray-800 text-pink-500 px-1 rounded" {...props} />
+  ) : (
+    <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto">
+      <code {...props} />
+    </pre>
+  );
+}
+
+// ✅ Halaman post
 export default async function PostPage({ params }: PostPageProps) {
-  const { slug } = await params;
+  const resolvedParams = await params; // ✅ tunggu params dulu
+  const { slug } = resolvedParams;
   const post = await getPostBySlug(slug);
 
   if (!post) return notFound();
 
   const components: Components = {
     h1: (props) => (
-      <h1 className="text-3xl md:text-4xl font-extrabold mt-8 mb-4 border-b pb-2" {...props} />
+      <h1
+        className="text-3xl md:text-4xl font-extrabold mt-8 mb-4 border-b pb-2"
+        {...props}
+      />
     ),
     h2: (props) => (
-      <h2 className="text-2xl md:text-3xl font-bold mt-6 mb-3 text-indigo-600 dark:text-indigo-400" {...props} />
+      <h2
+        className="text-2xl md:text-3xl font-bold mt-6 mb-3 text-indigo-600 dark:text-indigo-400"
+        {...props}
+      />
     ),
     h3: (props) => (
       <h3 className="text-xl md:text-2xl font-semibold mt-5 mb-2" {...props} />
@@ -75,16 +96,12 @@ export default async function PostPage({ params }: PostPageProps) {
       <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-5" {...props} />
     ),
     blockquote: (props) => (
-      <blockquote className="border-l-4 border-indigo-500 pl-4 italic text-gray-700 dark:text-gray-300" {...props} />
+      <blockquote
+        className="border-l-4 border-indigo-500 pl-4 italic text-gray-700 dark:text-gray-300"
+        {...props}
+      />
     ),
-    code: ({ inline, ...props }: ComponentPropsWithoutRef<"code"> & { inline?: boolean }) =>
-      inline ? (
-        <code className="bg-gray-200 dark:bg-gray-800 text-pink-500 px-1 rounded" {...props} />
-      ) : (
-        <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto">
-          <code {...props} />
-        </pre>
-      ),
+    code: Code,
   };
 
   return (
@@ -94,7 +111,18 @@ export default async function PostPage({ params }: PostPageProps) {
           {post.title}
         </h1>
         <p className="mt-3 text-gray-600 dark:text-gray-400">
-          By <span className="font-semibold text-indigo-600 dark:text-indigo-400">{post.author}</span> • {post.date}
+          By{" "}
+          <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+            {post.author || "Anonymous"}
+          </span>{" "}
+          •{" "}
+          {post.date
+            ? new Date(post.date).toLocaleDateString("id-ID", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })
+            : "Unknown date"}
         </p>
       </header>
 
@@ -102,9 +130,10 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className="mb-10">
           <Image
             src={post.image}
-            alt={post.title}
+            alt={post.title || "Blog image"}
             width={800}
             height={450}
+            priority
             className="w-full rounded-2xl shadow-xl object-cover"
           />
         </div>
@@ -116,7 +145,10 @@ export default async function PostPage({ params }: PostPageProps) {
         </Markdown>
       </article>
 
-      <ShareButtons url={`https://example.com/blog/${post.slug}`} title={post.title} />
+      <ShareButtons
+        url={`https://namadomainmu.com/blog/${post.slug}`}
+        title={post.title}
+      />
     </div>
   );
 }

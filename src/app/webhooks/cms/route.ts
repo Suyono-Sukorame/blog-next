@@ -1,19 +1,28 @@
+// src/app/webhooks/cms/route.ts
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function POST(request: Request) {
-  try {
-    const payload = await request.json();
-    console.log("payload", payload);
+  const payload = await request.json();
 
-    // Proses payload sesuai kebutuhan...
-    
-    // Kembalikan 200 OK
-    return NextResponse.json({ message: "Webhook received" }, { status: 200 });
-    
-    // Atau jika tidak perlu body:
-    // return NextResponse.json(null, { status: 204 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+  if (!payload.slug) {
+    if (payload.event === "trigger-test") {
+      return new Response(JSON.stringify({ message: "Test trigger received" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    return new Response(JSON.stringify({ message: "Slug not found in payload", payload }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
+
+  // Revalidation logic...
+  await revalidatePath(`/blog/${payload.slug}`);
+  return new Response(JSON.stringify({ message: `Revalidation triggered for slug: ${payload.slug}` }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
+
